@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.0.RELEASE'
+		springBootVersion = '1.5.7.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -29,5 +29,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile group: 'com.graphql-java', name: 'graphql-spring-boot-starter', version: '3.10.0'
 	compile group: 'com.graphql-java', name: 'graphql-java-tools', version: '4.3.0'
+	compile group: 'com.graphql-java', name: 'graphiql-spring-boot-starter', version: '3.10.0'
+	compile group: 'org.projectlombok', name: 'lombok-maven-plugin', version: '1.16.20.0'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
