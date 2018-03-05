@@ -1,0 +1,13 @@
+type Category {
+    id: ID!
+    name: String!
+}
+
+type Query {
+    findAllCategories: [Category]!
+}
+
+type Mutation {
+    newCategory(name: String!) : Category!
+    deleteCategory(id: ID!) : Boolean
+}

@@ -1,0 +1,16 @@
+type TestCase {
+    id: ID!
+    name: String!
+    description: String!
+    category: Category
+}
+
+extend type Query {
+    findAllTestCases: [TestCase]!
+}
+
+extend type Mutation {
+    newTestCase(name: String!, description: String!, category: ID!) : TestCase!
+    deleteTestCase(id: ID!) : Boolean
+    updateTestCase(id: ID!, name: String!, description: String!, category: ID!) : TestCase!
+}
