@@ -11,11 +11,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Category {
 
     @Id
-    private long id;
+    private String id;
 
     private String name;
 
-    public Category(long id) {
+    public Category(String id) {
         this.id = id;
     }
 }

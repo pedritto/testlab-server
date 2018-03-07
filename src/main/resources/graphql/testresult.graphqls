@@ -1,0 +1,10 @@
+enum TestResult {
+  WAITING
+  PASSED
+  FAILED
+  BLOCKED
+}
+
+extend type Query {
+    getTestResultValues: [String]!
+}

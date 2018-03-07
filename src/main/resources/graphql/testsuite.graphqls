@@ -1,0 +1,13 @@
+type TestSuite {
+    id: ID!
+    name: String!
+    testCases: [TestCase!]!
+}
+
+extend type Query {
+    findAllTestSuites: [TestSuite]!
+}
+
+extend type Mutation {
+    newTestSuite(name: String!, testCaseIds: [ID!]!) : TestSuite!
+}

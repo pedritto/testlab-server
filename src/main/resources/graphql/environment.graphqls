@@ -1,0 +1,12 @@
+type Environment {
+    id: ID!
+    name: String!
+}
+
+extend type Query {
+    findAllEnvironments: [Environment]!
+}
+
+extend type Mutation {
+    newEnvironment(name: String!) : Environment!
+}

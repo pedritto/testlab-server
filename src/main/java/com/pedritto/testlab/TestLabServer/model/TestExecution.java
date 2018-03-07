@@ -3,20 +3,26 @@ package com.pedritto.testlab.TestLabServer.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "testcase")
+import java.util.List;
+
+@Document(collection = "testexecution")
 @NoArgsConstructor
 @Data
-public class TestCase {
+public class TestExecution {
 
     @Id
     private String id;
 
     private String name;
 
-    private String description;
+    private TestSuite testSuite;
 
-    private Category category;
+    private Environment environment;
+
+    @DBRef
+    private List<TestCaseExecution> testCaseExecutions;
 
 }

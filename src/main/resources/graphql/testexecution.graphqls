@@ -1,0 +1,15 @@
+type TestExecution {
+    id: ID!
+    name: String!
+    testSuite: TestSuite!
+    environment: Environment!
+    testCaseExecutions: [TestCaseExecution!]!
+}
+
+extend type Query {
+    findAllTestExecutions: [TestExecution]!
+}
+
+extend type Mutation {
+    newTestExecution(name: String!, testSuiteId: ID!, environmentId: ID!) : TestExecution!
+}
