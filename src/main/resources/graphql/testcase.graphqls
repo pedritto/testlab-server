@@ -1,5 +1,6 @@
 type TestCase {
     id: ID!
+    number: String!
     name: String!
     description: String!
     category: Category
@@ -7,10 +8,16 @@ type TestCase {
 
 extend type Query {
     findAllTestCases: [TestCase]!
+    filterTestCases(filter: TestCaseFilter!): [TestCase]!
 }
 
 extend type Mutation {
-    newTestCase(name: String!, description: String!, categoryId: ID!) : TestCase!
+    newTestCase(number: String!, name: String!, description: String!, categoryId: ID!) : TestCase!
     deleteTestCase(id: ID!) : Boolean
-    updateTestCase(id: ID!, name: String!, description: String!, category: ID!) : TestCase!
+    updateTestCase(id: ID!, number: String!, name: String!, description: String!, category: ID!) : TestCase!
+}
+
+input TestCaseFilter {
+  searchText: String
+  categoryId: String
 }

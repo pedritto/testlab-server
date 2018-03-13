@@ -16,8 +16,9 @@ public class TestCaseMutation implements GraphQLMutationResolver {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public TestCase newTestCase(String name, String description, String categoryId) {
+    public TestCase newTestCase(String number, String name, String description, String categoryId) {
         TestCase testCase = new TestCase();
+        testCase.setNumber(number);
         testCase.setName(name);
         testCase.setDescription(description);
         Category category = categoryRepository.findOne(categoryId);
@@ -31,8 +32,9 @@ public class TestCaseMutation implements GraphQLMutationResolver {
         return Boolean.TRUE;
     }
 
-    public TestCase updateTestCase(String id, String name, String description, String categoryId) {
+    public TestCase updateTestCase(String id, String number, String name, String description, String categoryId) {
         TestCase testCase = testCaseRepository.findOne(id);
+        testCase.setNumber(number);
         testCase.setName(name);
         testCase.setDescription(description);
         Category category = categoryRepository.findOne(categoryId);

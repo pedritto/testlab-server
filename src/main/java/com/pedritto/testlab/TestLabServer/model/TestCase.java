@@ -13,6 +13,8 @@ public class TestCase {
     @Id
     private String id;
 
+    private String number;
+
     private String name;
 
     private String description;
