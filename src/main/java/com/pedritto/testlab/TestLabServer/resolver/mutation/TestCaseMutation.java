@@ -28,12 +28,21 @@ public class TestCaseMutation implements GraphQLMutationResolver {
     }
 
     public boolean deleteTestCase(String id) {
-        testCaseRepository.delete(id);
-        return Boolean.TRUE;
+        TestCase testCase = testCaseRepository.findOne(id);
+        if(testCase != null) {
+            testCaseRepository.delete(testCase);
+            return Boolean.TRUE;
+        } else {
+            // @TODO: Exception handling
+            return Boolean.FALSE;
+        }
     }
 
     public TestCase updateTestCase(String id, String number, String name, String description, String categoryId) {
         TestCase testCase = testCaseRepository.findOne(id);
+        if(testCase == null) {
+            testCase = new TestCase();
+        }
         testCase.setNumber(number);
         testCase.setName(name);
         testCase.setDescription(description);
