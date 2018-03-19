@@ -38,12 +38,11 @@ public class TestCaseMutation implements GraphQLMutationResolver {
         }
     }
 
-    public TestCase updateTestCase(String id, String number, String name, String description, String categoryId) {
+    public TestCase updateTestCase(String id, String name, String description, String categoryId) {
         TestCase testCase = testCaseRepository.findOne(id);
         if(testCase == null) {
             testCase = new TestCase();
         }
-        testCase.setNumber(number);
         testCase.setName(name);
         testCase.setDescription(description);
         Category category = categoryRepository.findOne(categoryId);
