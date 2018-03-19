@@ -12,7 +12,7 @@ extend type Query {
 }
 
 extend type Mutation {
-    newTestCase(number: String!, name: String!, description: String!, categoryId: ID!) : TestCase!
+    newTestCase(name: String!, description: String!, categoryId: ID!) : TestCase!
     deleteTestCase(id: ID!) : Boolean
     updateTestCase(id: ID!, name: String!, description: String!, categoryId: ID!) : TestCase!
 }
