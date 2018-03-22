@@ -8,6 +8,7 @@ type TestCase {
 
 extend type Query {
     findAllTestCases: [TestCase]!
+    findTestCase(id: ID!): TestCase!
     filterTestCases(filter: TestCaseFilter!): [TestCase]!
 }
 
