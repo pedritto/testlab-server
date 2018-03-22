@@ -1,6 +1,7 @@
 package com.pedritto.testlab.TestLabServer.resolver.mutation;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import com.pedritto.testlab.TestLabServer.repository.exception.EntityNotFoundException;
 import com.pedritto.testlab.TestLabServer.model.Category;
 import com.pedritto.testlab.TestLabServer.model.TestCase;
 import com.pedritto.testlab.TestLabServer.repository.CategoryRepository;
@@ -23,11 +24,9 @@ public class TestCaseMutation implements GraphQLMutationResolver {
     private SequenceRepository sequenceRepository;
 
     public TestCase newTestCase(String name, String description, String categoryId) {
-        Category category = categoryRepository.findById(categoryId).orElseGet(null);
-        // @TODO: Exception handling
-        if(category == null) {
-            return null;
-        }
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new EntityNotFoundException(Category.class, categoryId));
+
         TestCase testCase = new TestCase();
         String testCaseNumber = this.generateTestCaseNumber();
         testCase.setNumber(testCaseNumber);
@@ -44,23 +43,20 @@ public class TestCaseMutation implements GraphQLMutationResolver {
     }
 
     public boolean deleteTestCase(String id) {
-        TestCase testCase = testCaseRepository.findById(id).orElseGet(null);
-        if(testCase != null) {
-            testCaseRepository.delete(testCase);
-            return Boolean.TRUE;
-        } else {
-            // @TODO: Exception handling
-            return Boolean.FALSE;
-        }
+        TestCase testCase = testCaseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(TestCase.class, id));
+
+        testCaseRepository.delete(testCase);
+        return Boolean.TRUE;
     }
 
     public TestCase updateTestCase(String id, String name, String description, String categoryId) {
-        TestCase testCase = testCaseRepository.findById(id).orElseGet(null);
-        Category category = categoryRepository.findById(categoryId).orElseGet(null);
-        // @TODO: Exception handling
-        if(testCase == null || category == null) {
-            return null;
-        }
+        TestCase testCase = testCaseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(TestCase.class, id));
+
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new EntityNotFoundException(Category.class, categoryId));
+
         testCase.setName(name);
         testCase.setDescription(description);
         testCase.setCategory(category);

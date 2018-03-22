@@ -1,6 +1,7 @@
 package com.pedritto.testlab.TestLabServer.resolver.mutation;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import com.pedritto.testlab.TestLabServer.repository.exception.EntityNotFoundException;
 import com.pedritto.testlab.TestLabServer.model.Category;
 import com.pedritto.testlab.TestLabServer.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CategoryMutation implements GraphQLMutationResolver {
+
+    private String NOT_FOUND_ERROR_MESSAGE = "Category was not found.";
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -20,7 +23,9 @@ public class CategoryMutation implements GraphQLMutationResolver {
     }
 
     public boolean deleteCategory(String id) {
-        categoryRepository.deleteById(id);
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Category.class, id));
+        categoryRepository.delete(category);
         return Boolean.TRUE;
     }
 }

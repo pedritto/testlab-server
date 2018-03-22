@@ -2,6 +2,7 @@ package com.pedritto.testlab.TestLabServer.resolver.query;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.pedritto.testlab.TestLabServer.data.TestCaseFilter;
+import com.pedritto.testlab.TestLabServer.repository.exception.EntityNotFoundException;
 import com.pedritto.testlab.TestLabServer.model.TestCase;
 import com.pedritto.testlab.TestLabServer.repository.TestCaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,8 @@ public class TestCaseQuery implements GraphQLQueryResolver {
     }
 
     public TestCase findTestCase(String id) {
-        return testCaseRepository.findById(id).orElseGet(null);
+        return testCaseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(TestCase.class, id));
     }
 
     public Iterable<TestCase> filterTestCases(TestCaseFilter testCaseFilter) {
