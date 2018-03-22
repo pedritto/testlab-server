@@ -23,7 +23,7 @@ public class TestSuiteMutation implements GraphQLMutationResolver {
         TestSuite testSuite = new TestSuite();
         testSuite.setName(name);
         List<TestCase> testCases = testCaseIds.stream()
-                .map(testCaseId -> testCaseRepository.findOne(testCaseId))
+                .map(testCaseId -> testCaseRepository.findById(testCaseId).orElseGet(null))
                 .collect(Collectors.toList());
         testSuite.setTestCases(testCases);
         testSuiteRepository.save(testSuite);

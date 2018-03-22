@@ -23,7 +23,7 @@ public class TestCaseMutation implements GraphQLMutationResolver {
     private SequenceRepository sequenceRepository;
 
     public TestCase newTestCase(String name, String description, String categoryId) {
-        Category category = categoryRepository.findOne(categoryId);
+        Category category = categoryRepository.findById(categoryId).orElseGet(null);
         // @TODO: Exception handling
         if(category == null) {
             return null;
@@ -44,7 +44,7 @@ public class TestCaseMutation implements GraphQLMutationResolver {
     }
 
     public boolean deleteTestCase(String id) {
-        TestCase testCase = testCaseRepository.findOne(id);
+        TestCase testCase = testCaseRepository.findById(id).orElseGet(null);
         if(testCase != null) {
             testCaseRepository.delete(testCase);
             return Boolean.TRUE;
@@ -55,8 +55,8 @@ public class TestCaseMutation implements GraphQLMutationResolver {
     }
 
     public TestCase updateTestCase(String id, String name, String description, String categoryId) {
-        TestCase testCase = testCaseRepository.findOne(id);
-        Category category = categoryRepository.findOne(categoryId);
+        TestCase testCase = testCaseRepository.findById(id).orElseGet(null);
+        Category category = categoryRepository.findById(categoryId).orElseGet(null);
         // @TODO: Exception handling
         if(testCase == null || category == null) {
             return null;

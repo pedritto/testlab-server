@@ -24,9 +24,9 @@ public class TestExecutionMutation implements GraphQLMutationResolver {
     public TestExecution newTestExecution(String name, String testSuiteId, String environmentId) {
         TestExecution testExecution = new TestExecution();
         testExecution.setName(name);
-        TestSuite testSuite = testSuiteRepository.findOne(testSuiteId);
+        TestSuite testSuite = testSuiteRepository.findById(testSuiteId).orElseGet(null);
         testExecution.setTestSuite(testSuite);
-        testExecution.setEnvironment(environmentRepository.findOne(environmentId));
+        testExecution.setEnvironment(environmentRepository.findById(environmentId).orElseGet(null));
         List<TestCaseExecution> testCaseExecutions = testSuite.getTestCases().stream()
                 .map(testCaseId -> this.prepareTestCaseExecution(testCaseId))
                 .collect(Collectors.toList());

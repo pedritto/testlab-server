@@ -18,7 +18,7 @@ public class TestCaseQuery implements GraphQLQueryResolver {
     }
 
     public TestCase findTestCase(String id) {
-        return testCaseRepository.findOne(id);
+        return testCaseRepository.findById(id).orElseGet(null);
     }
 
     public Iterable<TestCase> filterTestCases(TestCaseFilter testCaseFilter) {

@@ -14,7 +14,7 @@ public class TestCaseExecutionMutation implements GraphQLMutationResolver {
     private TestCaseExecutionRepository testCaseExecutionRepository;
 
     public TestCaseExecution updateTestResult(String testCaseExecutionId, TestResult testResult) {
-        TestCaseExecution testCaseExecution = testCaseExecutionRepository.findOne(testCaseExecutionId);
+        TestCaseExecution testCaseExecution = testCaseExecutionRepository.findById(testCaseExecutionId).orElseGet(null);
         testCaseExecution.setTestResult(testResult);
         testCaseExecutionRepository.save(testCaseExecution);
         return testCaseExecution;

@@ -1,0 +1,23 @@
+#GraphQL
+graphql:
+  servlet:
+    mapping: /graphql
+
+#GraphiQL
+graphiql:
+  mapping: /graphiql
+  endpoint: /graphql
+  enabled: true
+  pageTitle: GraphiQL
+
+#mongodb
+spring:
+  data:
+    mongodb.host: localhost
+    mongodb.port: 27017
+    mongodb.database: testDB
+
+#logging
+logging:
+  level.: error
+  level.org.springframework.data: debug

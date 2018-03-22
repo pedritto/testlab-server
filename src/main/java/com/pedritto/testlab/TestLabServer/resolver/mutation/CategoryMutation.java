@@ -20,7 +20,7 @@ public class CategoryMutation implements GraphQLMutationResolver {
     }
 
     public boolean deleteCategory(String id) {
-        categoryRepository.delete(id);
+        categoryRepository.deleteById(id);
         return Boolean.TRUE;
     }
 }
