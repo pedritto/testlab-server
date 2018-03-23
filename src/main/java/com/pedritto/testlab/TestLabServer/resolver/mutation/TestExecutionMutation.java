@@ -1,7 +1,7 @@
 package com.pedritto.testlab.TestLabServer.resolver.mutation;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
-import com.pedritto.testlab.TestLabServer.repository.exception.EntityNotFoundException;
+import com.pedritto.testlab.TestLabServer.error.exception.EntityNotFoundException;
 import com.pedritto.testlab.TestLabServer.model.*;
 import com.pedritto.testlab.TestLabServer.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;

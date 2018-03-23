@@ -1,5 +1,6 @@
 package com.pedritto.testlab.TestLabServer.resolver.validation;
 
+import com.pedritto.testlab.TestLabServer.error.exception.ValidationException;
 import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintViolation;

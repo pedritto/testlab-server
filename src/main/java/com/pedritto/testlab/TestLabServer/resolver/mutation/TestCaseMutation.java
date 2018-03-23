@@ -1,6 +1,6 @@
 package com.pedritto.testlab.TestLabServer.resolver.mutation;
 
-import com.pedritto.testlab.TestLabServer.repository.exception.EntityNotFoundException;
+import com.pedritto.testlab.TestLabServer.error.exception.EntityNotFoundException;
 import com.pedritto.testlab.TestLabServer.model.Category;
 import com.pedritto.testlab.TestLabServer.model.TestCase;
 import com.pedritto.testlab.TestLabServer.repository.CategoryRepository;

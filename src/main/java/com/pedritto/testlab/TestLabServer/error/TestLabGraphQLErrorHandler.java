@@ -1,4 +1,4 @@
-package com.pedritto.testlab.TestLabServer.resolver.error;
+package com.pedritto.testlab.TestLabServer.error;
 
 import graphql.ExceptionWhileDataFetching;
 import graphql.GraphQLError;
