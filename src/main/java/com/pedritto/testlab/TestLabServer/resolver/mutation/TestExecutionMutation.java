@@ -1,6 +1,7 @@
 package com.pedritto.testlab.TestLabServer.resolver.mutation;
 
-import com.coxautodev.graphql.tools.GraphQLMutationResolver;import com.pedritto.testlab.TestLabServer.data.model.*;
+import com.pedritto.testlab.TestLabServer.data.input.TestExecutionInput;
+import com.pedritto.testlab.TestLabServer.data.model.*;
 import com.pedritto.testlab.TestLabServer.repository.environment.EnvironmentRepository;
 import com.pedritto.testlab.TestLabServer.repository.testCaseExecution.TestCaseExecutionRepository;
 import com.pedritto.testlab.TestLabServer.repository.testExecution.TestExecutionRepository;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class TestExecutionMutation implements GraphQLMutationResolver {
+public class TestExecutionMutation extends GraphQLBaseMutation<TestExecutionInput> {
 
     @Autowired
     private TestExecutionRepository testExecutionRepository;
@@ -23,12 +24,14 @@ public class TestExecutionMutation implements GraphQLMutationResolver {
     @Autowired
     private TestCaseExecutionRepository testCaseExecutionRepository;
 
-    public TestExecution newTestExecution(String name, String testSuiteId, String environmentId) {
-        TestSuite testSuite = testSuiteRepository.findOne(testSuiteId);
-        Environment environment = environmentRepository.findOne(environmentId);
+    public TestExecution newTestExecution(TestExecutionInput input) {
+        validate(input);
+
+        TestSuite testSuite = testSuiteRepository.findOne(input.getTestSuiteId());
+        Environment environment = environmentRepository.findOne(input.getEnvironmentId());
 
         TestExecution testExecution = new TestExecution();
-        testExecution.setName(name);
+        testExecution.setName(input.getName());
         testExecution.setTestSuite(testSuite);
         testExecution.setEnvironment(environment);
         List<TestCaseExecution> testCaseExecutions = testSuite.getTestCases().stream()

@@ -1,3 +1,8 @@
+input TestCaseExecutionInput {
+    testCaseExecutionId: ID!
+    testResult: TestResult!
+}
+
 type TestCaseExecution {
     id: ID!
     testCase: TestCase!
@@ -5,5 +10,5 @@ type TestCaseExecution {
 }
 
 extend type Mutation {
-    updateTestResult(testCaseExecutionId: ID!, testResult: TestResult!)  : TestCaseExecution!
+    updateTestResult(input: TestCaseExecutionInput!)  : TestCaseExecution!
 }

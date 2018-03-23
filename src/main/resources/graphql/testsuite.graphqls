@@ -1,3 +1,8 @@
+input TestSuiteInput {
+    name: String!
+    testCaseIds: [ID!]!
+}
+
 type TestSuite {
     id: ID!
     name: String!
@@ -9,5 +14,5 @@ extend type Query {
 }
 
 extend type Mutation {
-    newTestSuite(name: String!, testCaseIds: [ID!]!) : TestSuite!
+    newTestSuite(input: TestSuiteInput!) : TestSuite!
 }

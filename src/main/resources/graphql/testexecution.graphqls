@@ -1,3 +1,9 @@
+input TestExecutionInput {
+    name: String!
+    testSuiteId: ID!
+    environmentId: ID!
+}
+
 type TestExecution {
     id: ID!
     name: String!
@@ -11,5 +17,5 @@ extend type Query {
 }
 
 extend type Mutation {
-    newTestExecution(name: String!, testSuiteId: ID!, environmentId: ID!) : TestExecution!
+    newTestExecution(input: TestExecutionInput!) : TestExecution!
 }

@@ -1,21 +1,22 @@
 package com.pedritto.testlab.TestLabServer.resolver.mutation;
 
-import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import com.pedritto.testlab.TestLabServer.data.input.TestCaseExecutionInput;
 import com.pedritto.testlab.TestLabServer.data.model.TestCaseExecution;
-import com.pedritto.testlab.TestLabServer.data.model.TestResult;
 import com.pedritto.testlab.TestLabServer.repository.testCaseExecution.TestCaseExecutionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestCaseExecutionMutation implements GraphQLMutationResolver {
+public class TestCaseExecutionMutation extends GraphQLBaseMutation<TestCaseExecutionInput> {
 
     @Autowired
     private TestCaseExecutionRepository testCaseExecutionRepository;
 
-    public TestCaseExecution updateTestResult(String testCaseExecutionId, TestResult testResult) {
-        TestCaseExecution testCaseExecution = testCaseExecutionRepository.findOne(testCaseExecutionId);
-        testCaseExecution.setTestResult(testResult);
+    public TestCaseExecution updateTestResult(TestCaseExecutionInput input) {
+        validate(input);
+
+        TestCaseExecution testCaseExecution = testCaseExecutionRepository.findOne(input.getTestCaseExecutionId());
+        testCaseExecution.setTestResult(input.getTestResult());
         testCaseExecutionRepository.save(testCaseExecution);
         return testCaseExecution;
     }
