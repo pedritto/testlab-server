@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotEmpty;
+
 @Document(collection = "testcase")
 @NoArgsConstructor
 @Data
@@ -15,8 +17,10 @@ public class TestCase {
 
     private String number;
 
+    @NotEmpty
     private String name;
 
+    @NotEmpty
     private String description;
 
     private Category category;

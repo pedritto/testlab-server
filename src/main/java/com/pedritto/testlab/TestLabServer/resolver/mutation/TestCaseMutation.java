@@ -1,6 +1,5 @@
 package com.pedritto.testlab.TestLabServer.resolver.mutation;
 
-import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.pedritto.testlab.TestLabServer.repository.exception.EntityNotFoundException;
 import com.pedritto.testlab.TestLabServer.model.Category;
 import com.pedritto.testlab.TestLabServer.model.TestCase;
@@ -11,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestCaseMutation implements GraphQLMutationResolver {
+public class TestCaseMutation extends GraphQLBaseMutation<TestCase> {
 
     private String TEST_CASE_PREFIX = "TC";
     private String TEST_CASE_COLLECTION = "testcaseid";
@@ -33,6 +32,8 @@ public class TestCaseMutation implements GraphQLMutationResolver {
         testCase.setName(name);
         testCase.setDescription(description);
         testCase.setCategory(category);
+
+        validate(testCase);
         testCaseRepository.save(testCase);
         return testCase;
     }
