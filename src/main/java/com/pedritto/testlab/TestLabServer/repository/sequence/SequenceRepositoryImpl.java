@@ -1,4 +1,4 @@
-package com.pedritto.testlab.TestLabServer.repository;
+package com.pedritto.testlab.TestLabServer.repository.sequence;
 
 import com.pedritto.testlab.TestLabServer.data.model.Counter;
 import org.springframework.beans.factory.annotation.Autowired;

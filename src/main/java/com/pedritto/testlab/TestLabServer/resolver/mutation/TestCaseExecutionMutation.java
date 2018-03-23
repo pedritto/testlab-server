@@ -1,10 +1,9 @@
 package com.pedritto.testlab.TestLabServer.resolver.mutation;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
-import com.pedritto.testlab.TestLabServer.error.exception.EntityNotFoundException;
 import com.pedritto.testlab.TestLabServer.data.model.TestCaseExecution;
 import com.pedritto.testlab.TestLabServer.data.model.TestResult;
-import com.pedritto.testlab.TestLabServer.repository.TestCaseExecutionRepository;
+import com.pedritto.testlab.TestLabServer.repository.testCaseExecution.TestCaseExecutionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +14,7 @@ public class TestCaseExecutionMutation implements GraphQLMutationResolver {
     private TestCaseExecutionRepository testCaseExecutionRepository;
 
     public TestCaseExecution updateTestResult(String testCaseExecutionId, TestResult testResult) {
-        TestCaseExecution testCaseExecution = testCaseExecutionRepository.findById(testCaseExecutionId)
-                .orElseThrow(() -> new EntityNotFoundException(TestCaseExecution.class, testCaseExecutionId));
+        TestCaseExecution testCaseExecution = testCaseExecutionRepository.findOne(testCaseExecutionId);
         testCaseExecution.setTestResult(testResult);
         testCaseExecutionRepository.save(testCaseExecution);
         return testCaseExecution;

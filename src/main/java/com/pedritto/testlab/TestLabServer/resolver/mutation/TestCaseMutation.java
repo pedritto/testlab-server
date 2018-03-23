@@ -1,12 +1,11 @@
 package com.pedritto.testlab.TestLabServer.resolver.mutation;
 
 import com.pedritto.testlab.TestLabServer.data.input.TestCaseInput;
-import com.pedritto.testlab.TestLabServer.error.exception.EntityNotFoundException;
 import com.pedritto.testlab.TestLabServer.data.model.Category;
 import com.pedritto.testlab.TestLabServer.data.model.TestCase;
-import com.pedritto.testlab.TestLabServer.repository.CategoryRepository;
-import com.pedritto.testlab.TestLabServer.repository.SequenceRepository;
-import com.pedritto.testlab.TestLabServer.repository.TestCaseRepository;
+import com.pedritto.testlab.TestLabServer.repository.category.CategoryRepository;
+import com.pedritto.testlab.TestLabServer.repository.sequence.SequenceRepository;
+import com.pedritto.testlab.TestLabServer.repository.testCase.TestCaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,8 +26,7 @@ public class TestCaseMutation extends GraphQLBaseMutation<TestCaseInput> {
 
         validate(input);
 
-        Category category = categoryRepository.findById(input.getCategoryId())
-                .orElseThrow(() -> new EntityNotFoundException(Category.class, input.getCategoryId()));
+        Category category = categoryRepository.findOne(input.getCategoryId());
 
         TestCase testCase = new TestCase();
         String testCaseNumber = this.generateTestCaseNumber();
@@ -47,9 +45,7 @@ public class TestCaseMutation extends GraphQLBaseMutation<TestCaseInput> {
     }
 
     public boolean deleteTestCase(String id) {
-        TestCase testCase = testCaseRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(TestCase.class, id));
-
+        TestCase testCase = testCaseRepository.findOne(id);
         testCaseRepository.delete(testCase);
         return Boolean.TRUE;
     }
@@ -58,12 +54,8 @@ public class TestCaseMutation extends GraphQLBaseMutation<TestCaseInput> {
 
         validate(input);
 
-        TestCase testCase = testCaseRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(TestCase.class, id));
-
-        Category category = categoryRepository.findById(input.getCategoryId())
-                .orElseThrow(() -> new EntityNotFoundException(Category.class, input.getCategoryId()));
-
+        TestCase testCase = testCaseRepository.findOne(id);
+        Category category = categoryRepository.findOne(input.getCategoryId());
         testCase.setName(input.getName());
         testCase.setDescription(input.getDescription());
         testCase.setCategory(category);
