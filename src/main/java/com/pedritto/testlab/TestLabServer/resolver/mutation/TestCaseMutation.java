@@ -1,8 +1,9 @@
 package com.pedritto.testlab.TestLabServer.resolver.mutation;
 
+import com.pedritto.testlab.TestLabServer.data.input.TestCaseInput;
 import com.pedritto.testlab.TestLabServer.error.exception.EntityNotFoundException;
-import com.pedritto.testlab.TestLabServer.model.Category;
-import com.pedritto.testlab.TestLabServer.model.TestCase;
+import com.pedritto.testlab.TestLabServer.data.model.Category;
+import com.pedritto.testlab.TestLabServer.data.model.TestCase;
 import com.pedritto.testlab.TestLabServer.repository.CategoryRepository;
 import com.pedritto.testlab.TestLabServer.repository.SequenceRepository;
 import com.pedritto.testlab.TestLabServer.repository.TestCaseRepository;
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestCaseMutation extends GraphQLBaseMutation<TestCase> {
+public class TestCaseMutation extends GraphQLBaseMutation<TestCaseInput> {
 
     private String TEST_CASE_PREFIX = "TC";
     private String TEST_CASE_COLLECTION = "testcaseid";
@@ -22,18 +23,20 @@ public class TestCaseMutation extends GraphQLBaseMutation<TestCase> {
     @Autowired
     private SequenceRepository sequenceRepository;
 
-    public TestCase newTestCase(String name, String description, String categoryId) {
-        Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new EntityNotFoundException(Category.class, categoryId));
+    public TestCase newTestCase(TestCaseInput input) {
+
+        validate(input);
+
+        Category category = categoryRepository.findById(input.getCategoryId())
+                .orElseThrow(() -> new EntityNotFoundException(Category.class, input.getCategoryId()));
 
         TestCase testCase = new TestCase();
         String testCaseNumber = this.generateTestCaseNumber();
         testCase.setNumber(testCaseNumber);
-        testCase.setName(name);
-        testCase.setDescription(description);
+        testCase.setName(input.getName());
+        testCase.setDescription(input.getDescription());
         testCase.setCategory(category);
 
-        validate(testCase);
         testCaseRepository.save(testCase);
         return testCase;
     }
@@ -51,15 +54,18 @@ public class TestCaseMutation extends GraphQLBaseMutation<TestCase> {
         return Boolean.TRUE;
     }
 
-    public TestCase updateTestCase(String id, String name, String description, String categoryId) {
+    public TestCase updateTestCase(String id, TestCaseInput input) {
+
+        validate(input);
+
         TestCase testCase = testCaseRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(TestCase.class, id));
 
-        Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new EntityNotFoundException(Category.class, categoryId));
+        Category category = categoryRepository.findById(input.getCategoryId())
+                .orElseThrow(() -> new EntityNotFoundException(Category.class, input.getCategoryId()));
 
-        testCase.setName(name);
-        testCase.setDescription(description);
+        testCase.setName(input.getName());
+        testCase.setDescription(input.getDescription());
         testCase.setCategory(category);
         return testCaseRepository.save(testCase);
     }

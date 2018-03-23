@@ -1,23 +1,21 @@
-package com.pedritto.testlab.TestLabServer.model;
+package com.pedritto.testlab.TestLabServer.data.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
-@Document(collection = "testsuite")
+@Document(collection = "category")
 @NoArgsConstructor
 @Data
-public class TestSuite {
+public class Category {
 
     @Id
     private String id;
 
     private String name;
 
-    @DBRef
-    private List<TestCase> testCases;
+    public Category(String id) {
+        this.id = id;
+    }
 }

@@ -1,7 +1,7 @@
 package com.pedritto.testlab.TestLabServer.resolver.query;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import com.pedritto.testlab.TestLabServer.model.TestResult;
+import com.pedritto.testlab.TestLabServer.data.model.TestResult;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

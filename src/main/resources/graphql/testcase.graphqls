@@ -1,3 +1,14 @@
+input TestCaseInput {
+    name: String!
+    description: String!
+    categoryId: ID!
+}
+
+input TestCaseFilter {
+    searchText: String
+    categoryId: ID
+}
+
 type TestCase {
     id: ID!
     number: String!
@@ -13,12 +24,7 @@ extend type Query {
 }
 
 extend type Mutation {
-    newTestCase(name: String!, description: String!, categoryId: ID!) : TestCase!
+    newTestCase(input: TestCaseInput!) : TestCase!
+    updateTestCase(id: ID!, input: TestCaseInput!) : TestCase!
     deleteTestCase(id: ID!) : Boolean
-    updateTestCase(id: ID!, name: String!, description: String!, categoryId: ID!) : TestCase!
-}
-
-input TestCaseFilter {
-  searchText: String
-  categoryId: String
 }

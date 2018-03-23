@@ -1,6 +1,6 @@
 package com.pedritto.testlab.TestLabServer.repository;
 
-import com.pedritto.testlab.TestLabServer.model.Counter;
+import com.pedritto.testlab.TestLabServer.data.model.Counter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Update;

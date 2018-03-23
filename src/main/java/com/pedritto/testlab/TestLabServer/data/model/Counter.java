@@ -1,4 +1,4 @@
-package com.pedritto.testlab.TestLabServer.model;
+package com.pedritto.testlab.TestLabServer.data.model;
 
 
 import lombok.Data;

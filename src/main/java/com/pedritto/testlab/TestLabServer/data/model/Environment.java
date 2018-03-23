@@ -1,21 +1,18 @@
-package com.pedritto.testlab.TestLabServer.model;
+package com.pedritto.testlab.TestLabServer.data.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "category")
+
+@Document(collection = "environment")
 @NoArgsConstructor
 @Data
-public class Category {
+public class Environment {
 
     @Id
     private String id;
 
     private String name;
-
-    public Category(String id) {
-        this.id = id;
-    }
 }

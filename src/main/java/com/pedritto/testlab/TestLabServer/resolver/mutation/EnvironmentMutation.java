@@ -1,7 +1,7 @@
 package com.pedritto.testlab.TestLabServer.resolver.mutation;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
-import com.pedritto.testlab.TestLabServer.model.Environment;
+import com.pedritto.testlab.TestLabServer.data.model.Environment;
 import com.pedritto.testlab.TestLabServer.repository.EnvironmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

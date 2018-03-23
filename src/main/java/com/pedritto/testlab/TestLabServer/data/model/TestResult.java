@@ -1,4 +1,4 @@
-package com.pedritto.testlab.TestLabServer.model;
+package com.pedritto.testlab.TestLabServer.data.model;
 
 public enum TestResult {
     WAITING,

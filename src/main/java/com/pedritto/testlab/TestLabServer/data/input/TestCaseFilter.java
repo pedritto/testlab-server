@@ -1,4 +1,4 @@
-package com.pedritto.testlab.TestLabServer.data;
+package com.pedritto.testlab.TestLabServer.data.input;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
