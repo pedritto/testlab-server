@@ -1,3 +1,6 @@
+# java.time.LocalDateTime implementation
+scalar LocalDateTime
+
 input TestCaseExecutionInput {
     testCaseExecutionId: ID!
     testResult: TestResult!
@@ -5,8 +8,12 @@ input TestCaseExecutionInput {
 
 type TestCaseExecution {
     id: ID!
-    testCase: TestCase!
+    number: String!
+    name: String!
+    description: String!
+    category: Category!
     testResult: TestResult!
+    lastModified: LocalDateTime!
 }
 
 extend type Mutation {

@@ -4,6 +4,7 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
+		jcenter()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -21,6 +22,11 @@ sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+	jcenter()
+}
+
+configurations.all {
+	exclude group: 'org.slf4j', module: 'slf4j-log4j12'
 }
 
 dependencies {
@@ -30,5 +36,7 @@ dependencies {
 	compile group: 'com.graphql-java', name: 'graphiql-spring-boot-starter', version: '4.0.0'
 	compile group: 'com.graphql-java', name: 'graphql-java-tools', version: '4.3.0'
 	compile group: 'org.projectlombok', name: 'lombok-maven-plugin', version: '1.16.20.0'
+	compile group: 'com.zhokhov.graphql', name: 'graphql-datetime-spring-boot-starter', version:'1.0.0'
+	compile group: 'net.sf.dozer', name: 'dozer', version:'5.4.0'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

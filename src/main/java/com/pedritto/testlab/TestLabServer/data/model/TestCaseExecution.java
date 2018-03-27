@@ -5,16 +5,14 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Document(collection = "testcaseexecution")
 @NoArgsConstructor
 @Data
-public class TestCaseExecution {
-
-    @Id
-    private String id;
-
-    private TestCase testCase;
+public class TestCaseExecution extends TestCase{
 
     private TestResult testResult;
 
+    protected LocalDateTime lastModified;
 }

@@ -6,6 +6,8 @@ import com.pedritto.testlab.TestLabServer.repository.testCaseExecution.TestCaseE
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class TestCaseExecutionMutation extends GraphQLBaseMutation<TestCaseExecutionInput> {
 
@@ -17,6 +19,7 @@ public class TestCaseExecutionMutation extends GraphQLBaseMutation<TestCaseExecu
 
         TestCaseExecution testCaseExecution = testCaseExecutionRepository.findOne(input.getTestCaseExecutionId());
         testCaseExecution.setTestResult(input.getTestResult());
+        testCaseExecution.setLastModified(LocalDateTime.now());
         testCaseExecutionRepository.save(testCaseExecution);
         return testCaseExecution;
     }

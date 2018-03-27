@@ -6,9 +6,12 @@ import com.pedritto.testlab.TestLabServer.repository.environment.EnvironmentRepo
 import com.pedritto.testlab.TestLabServer.repository.testCaseExecution.TestCaseExecutionRepository;
 import com.pedritto.testlab.TestLabServer.repository.testExecution.TestExecutionRepository;
 import com.pedritto.testlab.TestLabServer.repository.testSuite.TestSuiteRepository;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +27,12 @@ public class TestExecutionMutation extends GraphQLBaseMutation<TestExecutionInpu
     @Autowired
     private TestCaseExecutionRepository testCaseExecutionRepository;
 
+    private Mapper mapper;
+
+    public TestExecutionMutation() {
+        mapper = new DozerBeanMapper();
+    }
+
     public TestExecution newTestExecution(TestExecutionInput input) {
         validate(input);
 
@@ -31,21 +40,21 @@ public class TestExecutionMutation extends GraphQLBaseMutation<TestExecutionInpu
         Environment environment = environmentRepository.findOne(input.getEnvironmentId());
 
         TestExecution testExecution = new TestExecution();
-        testExecution.setName(input.getName());
-        testExecution.setTestSuite(testSuite);
+        testExecution.setName(testSuite.getName());
         testExecution.setEnvironment(environment);
         List<TestCaseExecution> testCaseExecutions = testSuite.getTestCases().stream()
                 .map(testCaseId -> this.prepareTestCaseExecution(testCaseId))
                 .collect(Collectors.toList());
         testExecution.setTestCaseExecutions(testCaseExecutions);
+        testExecution.setCreated(LocalDateTime.now());
         testExecutionRepository.save(testExecution);
         return testExecution;
     }
 
     private TestCaseExecution prepareTestCaseExecution(TestCase testCase) {
-        TestCaseExecution testCaseExecution = new TestCaseExecution();
-        testCaseExecution.setTestCase(testCase);
+        TestCaseExecution testCaseExecution = mapper.map(testCase, TestCaseExecution.class);
         testCaseExecution.setTestResult(TestResult.WAITING);
+        testCaseExecution.setLastModified(LocalDateTime.now());
         testCaseExecutionRepository.save(testCaseExecution);
         return testCaseExecution;
     }

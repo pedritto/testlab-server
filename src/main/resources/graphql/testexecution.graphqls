@@ -1,5 +1,7 @@
+# java.time.LocalDateTime implementation
+scalar LocalDateTime
+
 input TestExecutionInput {
-    name: String!
     testSuiteId: ID!
     environmentId: ID!
 }
@@ -7,9 +9,9 @@ input TestExecutionInput {
 type TestExecution {
     id: ID!
     name: String!
-    testSuite: TestSuite!
     environment: Environment!
     testCaseExecutions: [TestCaseExecution!]!
+    created: LocalDateTime!
 }
 
 extend type Query {

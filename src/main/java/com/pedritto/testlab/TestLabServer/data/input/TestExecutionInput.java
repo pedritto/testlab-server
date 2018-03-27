@@ -10,9 +10,6 @@ import javax.validation.constraints.NotEmpty;
 public class TestExecutionInput {
 
     @NotEmpty
-    String name;
-
-    @NotEmpty
     String testSuiteId;
 
     @NotEmpty
