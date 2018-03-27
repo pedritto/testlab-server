@@ -35,6 +35,12 @@ public class TestSuiteMutation extends GraphQLBaseMutation<TestSuiteInput>{
         return testSuite;
     }
 
+    public Boolean deleteTestSuite(String id) {
+        TestSuite testSuite = testSuiteRepository.findOne(id);
+        testSuiteRepository.delete(testSuite);
+        return Boolean.TRUE;
+    }
+
     private void setProperties(TestSuite testSuite, TestSuiteInput input) {
         testSuite.setName(input.getName());
         List<TestCase> testCases = input.getTestCaseIds().stream()
