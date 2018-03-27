@@ -23,25 +23,13 @@ public class TestCaseMutation extends GraphQLBaseMutation<TestCaseInput> {
     private SequenceRepository sequenceRepository;
 
     public TestCase newTestCase(TestCaseInput input) {
-
         validate(input);
-
-        Category category = categoryRepository.findOne(input.getCategoryId());
-
         TestCase testCase = new TestCase();
         String testCaseNumber = this.generateTestCaseNumber();
         testCase.setNumber(testCaseNumber);
-        testCase.setName(input.getName());
-        testCase.setDescription(input.getDescription());
-        testCase.setCategory(category);
-
+        setProperties(testCase, input);
         testCaseRepository.save(testCase);
         return testCase;
-    }
-
-    private String generateTestCaseNumber() {
-        int sequenceNumber = sequenceRepository.getNextSequence(TEST_CASE_COLLECTION);
-        return TEST_CASE_PREFIX + Integer.toString(sequenceNumber);
     }
 
     public boolean deleteTestCase(String id) {
@@ -51,14 +39,21 @@ public class TestCaseMutation extends GraphQLBaseMutation<TestCaseInput> {
     }
 
     public TestCase updateTestCase(String id, TestCaseInput input) {
-
         validate(input);
-
         TestCase testCase = testCaseRepository.findOne(id);
+        setProperties(testCase, input);
+        return testCaseRepository.save(testCase);
+    }
+
+    private String generateTestCaseNumber() {
+        int sequenceNumber = sequenceRepository.getNextSequence(TEST_CASE_COLLECTION);
+        return TEST_CASE_PREFIX + Integer.toString(sequenceNumber);
+    }
+
+    private void setProperties(TestCase testCase, TestCaseInput input) {
         Category category = categoryRepository.findOne(input.getCategoryId());
         testCase.setName(input.getName());
         testCase.setDescription(input.getDescription());
         testCase.setCategory(category);
-        return testCaseRepository.save(testCase);
     }
 }

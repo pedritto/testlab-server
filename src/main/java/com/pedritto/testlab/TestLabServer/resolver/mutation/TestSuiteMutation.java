@@ -21,14 +21,25 @@ public class TestSuiteMutation extends GraphQLBaseMutation<TestSuiteInput>{
 
     public TestSuite newTestSuite(TestSuiteInput input) {
         validate(input);
-
         TestSuite testSuite = new TestSuite();
+        setProperties(testSuite, input);
+        testSuiteRepository.save(testSuite);
+        return testSuite;
+    }
+
+    public TestSuite updateTestSuite(String id, TestSuiteInput input) {
+        validate(input);
+        TestSuite testSuite = testSuiteRepository.findOne(id);
+        setProperties(testSuite, input);
+        testSuiteRepository.save(testSuite);
+        return testSuite;
+    }
+
+    private void setProperties(TestSuite testSuite, TestSuiteInput input) {
         testSuite.setName(input.getName());
         List<TestCase> testCases = input.getTestCaseIds().stream()
                 .map(testCaseId -> testCaseRepository.findOne(testCaseId))
                 .collect(Collectors.toList());
         testSuite.setTestCases(testCases);
-        testSuiteRepository.save(testSuite);
-        return testSuite;
     }
 }
