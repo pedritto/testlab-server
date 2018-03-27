@@ -19,8 +19,7 @@ public class TestCaseQuery implements GraphQLQueryResolver {
     }
 
     public TestCase findTestCase(String id) {
-        return testCaseRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(TestCase.class, id));
+        return testCaseRepository.findOne(id);
     }
 
     public Iterable<TestCase> filterTestCases(TestCaseFilter testCaseFilter) {

@@ -11,6 +11,7 @@ type TestSuite {
 
 extend type Query {
     findAllTestSuites: [TestSuite]!
+    findTestSuite(id: ID!): TestSuite!
 }
 
 extend type Mutation {

@@ -12,6 +12,10 @@ public class TestSuiteQuery implements GraphQLQueryResolver {
     @Autowired
     private TestSuiteRepository testSuiteRepository;
 
+    public TestSuite findTestSuite(String id) {
+        return testSuiteRepository.findOne(id);
+    }
+
     public  Iterable<TestSuite> findAllTestSuites() {
         return testSuiteRepository.findAll();
     }
