@@ -13,6 +13,5 @@ public class TestCaseExecutionInput {
     @NotEmpty
     String testCaseExecutionId;
 
-    @NotEmpty
     TestResult testResult;
 }

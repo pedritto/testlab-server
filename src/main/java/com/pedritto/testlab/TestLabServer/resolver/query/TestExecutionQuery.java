@@ -16,4 +16,8 @@ public class TestExecutionQuery implements GraphQLQueryResolver {
         return testExecutionRepository.findAll();
     }
 
+    public TestExecution getTestExecution(String id) {
+        return testExecutionRepository.findOne(id);
+    }
+
 }

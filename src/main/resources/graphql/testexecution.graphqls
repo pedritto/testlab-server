@@ -16,6 +16,7 @@ type TestExecution {
 
 extend type Query {
     findAllTestExecutions: [TestExecution]!
+    getTestExecution(id: ID!): TestExecution!
 }
 
 extend type Mutation {
