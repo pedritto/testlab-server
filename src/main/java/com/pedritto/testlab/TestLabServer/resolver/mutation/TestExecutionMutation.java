@@ -26,12 +26,8 @@ public class TestExecutionMutation extends GraphQLBaseMutation<TestExecutionInpu
     private EnvironmentRepository environmentRepository;
     @Autowired
     private TestCaseExecutionRepository testCaseExecutionRepository;
-
-    private Mapper mapper;
-
-    public TestExecutionMutation() {
-        mapper = new DozerBeanMapper();
-    }
+    @Autowired
+    private DozerBeanMapper dozerBeanMapper;
 
     public TestExecution newTestExecution(TestExecutionInput input) {
         validate(input);
@@ -52,7 +48,7 @@ public class TestExecutionMutation extends GraphQLBaseMutation<TestExecutionInpu
     }
 
     private TestCaseExecution prepareTestCaseExecution(TestCase testCase) {
-        TestCaseExecution testCaseExecution = mapper.map(testCase, TestCaseExecution.class);
+        TestCaseExecution testCaseExecution = dozerBeanMapper.map(testCase, TestCaseExecution.class);
         testCaseExecution.setTestResult(TestResult.WAITING);
         testCaseExecution.setLastModified(LocalDateTime.now());
         testCaseExecutionRepository.save(testCaseExecution);
