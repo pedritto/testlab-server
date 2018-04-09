@@ -32,6 +32,7 @@ configurations.all {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.0.1.RELEASE'
 	compile group: 'com.graphql-java', name: 'graphql-spring-boot-starter', version: '4.0.0'
 	compile group: 'com.graphql-java', name: 'graphiql-spring-boot-starter', version: '4.0.0'
 	compile group: 'com.graphql-java', name: 'graphql-java-tools', version: '4.3.0'
